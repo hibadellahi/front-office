@@ -1,0 +1,300 @@
+<!-- src/app/pages/medecin-landing/medecin-landing.component.html -->
+<div class="medecin-container">
+  <!-- Header avec boutons Login/Inscription -->
+  <header class="medecin-header">
+    <div class="header-left">
+      <div class="logo" routerLink="/">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L12 22M2 12L22 12" stroke="#0e7268" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="10" stroke="#0e7268" stroke-width="2"/>
+        </svg>
+        <h1>SmartCare</h1>
+      </div>
+      <span class="header-subtitle">Espace Médecin</span>
+    </div>
+    <div class="header-right">
+      <button class="btn-login" routerLink="/login">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H15M10 17L15 12L10 7M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Connexion
+      </button>
+      <button class="btn-signup" routerLink="/inscription">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M20 8V14M23 11H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8.5" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Inscription
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="medecin-hero">
+    <div class="hero-content">
+      <h2>Optimisez Votre Cabinet Médical avec SmartCare</h2>
+      <p class="hero-subtitle">
+        La solution complète de gestion médicale conçue spécifiquement pour les médecins et les cabinets
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" routerLink="/inscription">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L12 22M2 12L22 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Démarrer
+        </button>
+        <button class="btn-secondary" (click)="scrollToPackages()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 14L12 21L5 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voir nos offres
+        </button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="image-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#0e7268" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="7" r="4" stroke="#0e7268" stroke-width="2"/>
+          <path d="M12 2L12 22M2 12L22 12" stroke="#fac967" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <p>Interface Médecin SmartCare</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages d'Abonnement -->
+  <section class="packages-section" #packagesSection>
+    <div class="section-header">
+      <h3>Choisissez Votre Formule d'Abonnement</h3>
+      <p>Des solutions adaptées à chaque type de cabinet médical</p>
+    </div>
+
+    <div class="packages-grid">
+      <!-- Package Débutant -->
+      <div class="package-card">
+        <div class="package-badge">Pour Débutants</div>
+        <div class="package-header">
+          <h4>Débutant</h4>
+          <div class="package-price">
+            <span class="amount">200 DH</span>
+            <span class="period">/mois</span>
+          </div>
+        </div>
+        <ul class="package-features">
+          <li><span class="feature-check">✓</span> Jusqu'à 100 patients</li>
+          <li><span class="feature-check">✓</span> Gestion des rendez-vous</li>
+          <li><span class="feature-check">✓</span> Dossiers médicaux électroniques</li>
+          <li><span class="feature-check">✗</span> Facturation de base</li>
+          <li><span class="feature-uncheck">✗</span> Statistiques avancées</li>
+          <li><span class="feature-uncheck">✗</span> Support téléphonique</li>
+        </ul>
+        <button class="package-btn" routerLink="/inscription">Commencer</button>
+      </div>
+
+      <!-- Package Professionnel -->
+      <div class="package-card popular">
+        <div class="package-badge">Le plus populaire</div>
+        <div class="package-header">
+          <h4>Professionnel</h4>
+          <div class="package-price">
+            <span class="amount">299 DH</span>
+            <span class="period">/mois</span>
+          </div>
+        </div>
+        <ul class="package-features">
+          <li><span class="feature-check">✓</span> Patients illimités</li>
+          <li><span class="feature-check">✓</span> Gestion complète des rendez-vous</li>
+          <li><span class="feature-check">✓</span> Dossiers médicaux complets</li>
+          <li><span class="feature-check">✓</span> Facturation électronique</li>
+          <li><span class="feature-check">✓</span> Statistiques détaillées</li>
+          <li><span class="feature-check">✗</span> Support par email</li>
+        </ul>
+        <button class="package-btn primary" routerLink="/inscription">Choisir cette formule</button>
+      </div>
+
+      <!-- Package Premium -->
+      <div class="package-card">
+        <div class="package-badge">Pour groupes</div>
+        <div class="package-header">
+          <h4>Premium</h4>
+          <div class="package-price">
+            <span class="amount">599 DH</span>
+            <span class="period">/mois</span>
+          </div>
+        </div>
+        <ul class="package-features">
+          <li><span class="feature-check">✓</span> Patients illimités</li>
+          <li><span class="feature-check">✓</span> Gestion avancée des rendez-vous</li>
+          <li><span class="feature-check">✓</span> Dossiers médicaux + stockage</li>
+          <li><span class="feature-check">✓</span> Facturation automatisée</li>
+          <li><span class="feature-check">✓</span> Tableaux de bord avancés</li>
+          <li><span class="feature-check">✓</span> Support téléphonique 24/7</li>
+        </ul>
+        <button class="package-btn" routerLink="/inscription">Choisir Premium</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistiques des Cabinets -->
+  <section class="stats-section">
+    <div class="section-header">
+      <h3>SmartCare en Chiffres pour les Médecins</h3>
+      <p>Rejoignez la communauté de médecins qui ont transformé leur pratique</p>
+    </div>
+
+    <div class="stats-cards">
+      <div class="stat-card">
+        <div class="stat-icon">🏥</div>
+        <div class="stat-content">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Cabinets Actifs</div>
+          <div class="stat-desc">Utilisent SmartCare quotidiennement</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-content">
+          <div class="stat-number">40%</div>
+          <div class="stat-label">Gain de temps</div>
+          <div class="stat-desc">Sur les tâches administratives</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <div class="stat-number">25%</div>
+          <div class="stat-label">Augmentation revenus</div>
+          <div class="stat-desc">Optimisation des créneaux</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-content">
+          <div class="stat-number">4.8/5</div>
+          <div class="stat-label">Satisfaction</div>
+          <div class="stat-desc">Note moyenne des médecins</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistiques par Spécialité -->
+    <div class="specialties-stats">
+      <h4>Répartition par Spécialité</h4>
+      <div class="specialties-grid">
+        <div class="specialty-item">
+          <div class="specialty-name">Médecine Générale</div>
+          <div class="specialty-bar">
+            <div class="specialty-fill" style="width: 45%"></div>
+          </div>
+          <div class="specialty-percent">45%</div>
+        </div>
+        <div class="specialty-item">
+          <div class="specialty-name">Dentistes</div>
+          <div class="specialty-bar">
+            <div class="specialty-fill" style="width: 20%"></div>
+          </div>
+          <div class="specialty-percent">20%</div>
+        </div>
+        <div class="specialty-item">
+          <div class="specialty-name">Spécialistes</div>
+          <div class="specialty-bar">
+            <div class="specialty-fill" style="width: 35%"></div>
+          </div>
+          <div class="specialty-percent">35%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <h3>Témoignages de Médecins</h3>
+      <p>Découvrez ce que disent vos confrères</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "SmartCare a transformé la gestion de mon cabinet. Je gagne 2 heures par jour sur l'administratif!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍⚕️</div>
+          <div class="author-info">
+            <div class="author-name">Dr. Karim Alami</div>
+            <div class="author-specialty">Cardiologue, Casablanca</div>
+            <div class="author-rating">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "La prise de rendez-vous en ligne a réduit mes appels téléphoniques de 70%. Incroyable!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩‍⚕️</div>
+          <div class="author-info">
+            <div class="author-name">Dr. Fatima Zahra</div>
+            <div class="author-specialty">Dentiste, Rabat</div>
+            <div class="author-rating">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "Les statistiques m'aident à mieux comprendre ma patientèle et optimiser mes horaires."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍⚕️</div>
+          <div class="author-info">
+            <div class="author-name">Dr. Ahmed Bennani</div>
+            <div class="author-specialty">Pédiatre, Marrakech</div>
+            <div class="author-rating">★★★★☆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h3>Prêt à révolutionner votre pratique médicale?</h3>
+      <p>Rejoignez des centaines de médecins satisfaits dès aujourd'hui</p>
+      <div class="cta-buttons">
+        <button class="cta-btn primary" routerLink="/inscription">
+          S'inscrire
+        </button>
+        <button class="cta-btn secondary" routerLink="/login">
+          Se connecter
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="medecin-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L12 22M2 12L22 12" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/>
+        </svg>
+        <span>SmartCare Pro</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+        <a href="#">Support</a>
+        <a href="#">Confidentialité</a>
+      </div>
+      <p class="footer-copyright">© 2025 SmartCare. Tous droits réservés.</p>
+    </div>
+  </footer>
+</div>

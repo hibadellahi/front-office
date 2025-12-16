@@ -1,0 +1,77 @@
+<!-- src/app/components/stats-display/stats-display.component.html -->
+<div class="stats-container">
+  <h3>SmartCare en Chiffres</h3>
+  
+  <div class="stats-grid">
+    <!-- Statistiques Principales -->
+    <div class="stat-card">
+      <div class="stat-number">{{ stats.cabinets }}+</div>
+      <div class="stat-label">Cabinets Médicaux</div>
+      <div class="stat-subtitle">Partout au Maroc</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">{{ stats.patients }}+</div>
+      <div class="stat-label">Patients Satisfaits</div>
+      <div class="stat-subtitle">Depuis 2023</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">{{ stats.regionsCovered }}</div>
+      <div class="stat-label">Régions Couvertes</div>
+      <div class="stat-subtitle">Sur 12 régions</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-number">{{ stats.successRate }}%</div>
+      <div class="stat-label">Taux de Satisfaction</div>
+      <div class="stat-subtitle">Patients & Médecins</div>
+    </div>
+  </div>
+
+  <!-- Pourcentages par Région -->
+  <div class="regions-section">
+    <h4>Couverture par Région</h4>
+    <div class="regions-grid">
+      <div *ngFor="let region of regions" class="region-item">
+        <div class="region-name">{{ region.name }}</div>
+        <div class="region-bar">
+          <div class="region-fill" [style.width.%]="region.percentage"></div>
+        </div>
+        <div class="region-percentage">{{ region.percentage }}%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Témoignages -->
+  <div class="testimonials">
+    <h4>Ce qu'ils disent de nous</h4>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "SmartCare a révolutionné la gestion de mon cabinet. Gain de temps considérable!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-icon">👨‍⚕️</div>
+          <div>
+            <div class="author-name">Dr. Ahmed Benani</div>
+            <div class="author-title">Cardiologue, Casablanca</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "Prendre rendez-vous n'a jamais été aussi simple. Excellent service!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-icon">👩‍💼</div>
+          <div>
+            <div class="author-name">Fatima Zohra</div>
+            <div class="author-title">Patiente depuis 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+/* src/app/pages/landing-page/landing-page.component.css */
+.landing-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 10px rgba(14, 114, 104, 0.1);
+}
+
+.header-left .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.header-left h1 {
+  color: #0e7268;
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-login, .btn-signup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-login {
+  background: white;
+  color: #0e7268;
+  border: 2px solid #0e7268;
+}
+
+.btn-login:hover {
+  background: #0e7268;
+  color: white;
+}
+
+.btn-signup {
+  background: #fac967;
+  color: #333;
+}
+
+.btn-signup:hover {
+  background: #f0b951;
+  transform: translateY(-2px);
+}
+
+.btn-login svg, .btn-signup svg {
+  width: 20px;
+  height: 20px;
+}
+
+.landing-main {
+  flex: 1;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #c5dfd8 0%, #b0cde1 100%);
+}
+
+.hero-section {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+}
+
+.hero-section h2 {
+  color: #0e7268;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.8;
+}
+
+.user-choice {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.choice-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.choice-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(14, 114, 104, 0.2);
+}
+
+.choice-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.choice-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.patient-icon {
+  background: #c5dfd8;
+  color: #0e7268;
+}
+
+.doctor-icon {
+  background: #fac967;
+  color: #b06500;
+}
+
+.choice-card h3 {
+  color: #0e7268;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.choice-card p {
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.choice-btn {
+  background: #0e7268;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.choice-btn:hover {
+  background: #0a5a52;
+}
+
+.landing-footer {
+  background: #0e7268;
+  color: white;
+  padding: 2rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.footer-links a {
+  color: #c5dfd8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+}

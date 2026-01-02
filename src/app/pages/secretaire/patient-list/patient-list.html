@@ -1,0 +1,56 @@
+<div class="patient-section">
+  <div class="header">
+    <h2>Gestion des Patients</h2>
+    <button class="btn-add" (click)="openAddModal()">+ Ajouter Patient</button>
+  </div>
+
+  <input type="text" placeholder="Rechercher par CIN ou nom..." [(ngModel)]="searchTerm" (input)="filterPatients()" class="search-input">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>CIN</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of filteredPatients">
+        <td>{{ patient.cin }}</td>
+        <td>{{ patient.nom }}</td>
+        <td>{{ patient.prenom }}</td>
+        <td>{{ patient.numTel }}</td>
+        <td>
+          <button (click)="openEditModal(patient)">Modifier</button>
+          <button class="btn-delete" (click)="deletePatient(patient.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal Ajouter/Modifier -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>{{ isEdit ? 'Modifier' : 'Ajouter' }} Patient</h3>
+    <form (ngSubmit)="savePatient()">
+      <input [(ngModel)]="currentPatient.cin" name="cin" placeholder="CIN" required>
+      <input [(ngModel)]="currentPatient.nom" name="nom" placeholder="Nom" required>
+      <input [(ngModel)]="currentPatient.prenom" name="prenom" placeholder="Prénom" required>
+      <input [(ngModel)]="currentPatient.numTel" name="numTel" placeholder="Téléphone">
+      <input type="date" [(ngModel)]="currentPatient.dateNaissance" name="dateNaissance">
+      <select [(ngModel)]="currentPatient.sexe" name="sexe">
+        <option value="M">Masculin</option>
+        <option value="F">Féminin</option>
+      </select>
+      <input [(ngModel)]="currentPatient.typeMutuelle" name="typeMutuelle" placeholder="Mutuelle">
+
+      <div class="actions">
+        <button type="submit">Sauvegarder</button>
+        <button type="button" (click)="closeModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>

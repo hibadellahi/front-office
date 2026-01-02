@@ -1,0 +1,23 @@
+<div class="queue-card">
+  <h2>File d'attente — Aujourd'hui ({{ today | date:'fullDate':'':'fr-FR' }})</h2>
+
+  <div *ngIf="loading" class="loading">Chargement de la file d'attente...</div>
+
+  <div *ngIf="!loading && waitingQueue.length === 0" class="empty-queue">
+    <p>Aucun patient en attente aujourd'hui</p>
+  </div>
+
+  <div class="queue-list" *ngIf="!loading && waitingQueue.length > 0">
+    <div class="queue-patient" *ngFor="let rdv of waitingQueue; let i = index">
+      <div class="position">#{{ i + 1 }}</div>
+      <div class="details">
+        <strong>{{ rdv.patient?.nom }} {{ rdv.patient?.prenom }}</strong>
+        <p>Heure du RDV: <strong>{{ rdv.heureRdv }}</strong></p>
+        <p *ngIf="rdv.motif">Motif: {{ rdv.motif }}</p>
+      </div>
+      <button class="call-btn" (click)="callNext(rdv.id)">
+        Appeler
+      </button>
+    </div>
+  </div>
+</div>

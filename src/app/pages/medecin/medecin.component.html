@@ -1,1 +1,141 @@
-<p>medecin works!</p>
+<div class="medecin-page">
+  <h1>Espace Médecin</h1>
+
+  <div *ngIf="loading" class="loading">Chargement du patient en consultation...</div>
+
+  <div *ngIf="!loading && !currentDossier" class="no-patient">
+    <p>Aucun patient en consultation actuellement</p>
+  </div>
+
+  <div class="dossier-container" *ngIf="!loading && currentDossier">
+    <div class="patient-header">
+      <h2>Patient en consultation</h2>
+      <h3>{{ currentDossier.patient.nom }} {{ currentDossier.patient.prenom }}</h3>
+      <p><strong>CIN :</strong> {{ currentDossier.patient.cin }}</p>
+      <p><strong>Date de naissance :</strong> {{ currentDossier.patient.dateNaissance | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Téléphone :</strong> {{ currentDossier.patient.numTel }}</p>
+    </div>
+
+    <div class="dossier-content">
+      <!-- Alerte si pas de dossier médical -->
+      <div class="alert" *ngIf="!currentDossier.hasMedicalRecord">
+        <button class="btn-create-record" (click)="openMedicalRecordForm()">
+          Créer le dossier médical
+        </button>
+      </div>
+
+      <!-- Affichage du dossier médical s'il existe -->
+      <div class="section" *ngIf="currentDossier.medicalRecord">
+        <h3>Dossier médical</h3>
+        <p><strong>Antécédents médicaux :</strong> {{ currentDossier.medicalRecord.antMedicaux || 'Aucun' }}</p>
+        <p><strong>Antécédents chirurgicaux :</strong> {{ currentDossier.medicalRecord.antChirug || 'Aucun' }}</p>
+        <p><strong>Allergies :</strong> {{ currentDossier.medicalRecord.allergies || 'Aucune connue' }}</p>
+        <p><strong>Traitement en cours :</strong> {{ currentDossier.medicalRecord.traitement || 'Aucun' }}</p>
+        <p><strong>Habitudes de vie :</strong> {{ currentDossier.medicalRecord.habitudes || 'Non spécifié' }}</p>
+      </div>
+
+      <!-- Historique des consultations -->
+      <div class="section">
+        <h3>Historique des consultations</h3>
+        <div *ngIf="currentDossier.consultations?.length > 0; else noConsult">
+          <div class="consultation-item" *ngFor="let c of currentDossier.consultations">
+            <p><strong>{{ c.dateConsultation | date:'dd/MM/yyyy' }}</strong> - {{ c.type }}</p>
+            <p><strong>Diagnostic :</strong> {{ c.diagnostic }}</p>
+            <p><strong>Traitement :</strong> {{ c.traitement }}</p>
+            <p><em>Observations : {{ c.observations || 'Aucune' }}</em></p>
+            <hr>
+          </div>
+        </div>
+        <ng-template #noConsult>
+          <p>Aucune consultation enregistrée</p>
+        </ng-template>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="actions">
+        <button class="btn-consult" (click)="showConsultForm = true">
+          + Ajouter une consultation
+        </button>
+        <button class="btn-terminer" (click)="terminerRdv()">
+          Terminer le rendez-vous
+        </button>
+      </div>
+
+      <!-- Formulaire création dossier médical -->
+      <div class="modal" *ngIf="showMedicalRecordForm">
+        <div class="modal-content">
+          <h3>Création du dossier médical</h3>
+          <form (ngSubmit)="saveMedicalRecord()">
+            <div class="form-group">
+              <label>Antécédents médicaux</label>
+              <textarea [(ngModel)]="newMedicalRecord.antMedicaux" name="antMedicaux" rows="3" placeholder="Ex: Hypertension, diabète..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Antécédents chirurgicaux</label>
+              <textarea [(ngModel)]="newMedicalRecord.antChirug" name="antChirug" rows="3" placeholder="Ex: Appendicectomie en 2015..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Allergies</label>
+              <textarea [(ngModel)]="newMedicalRecord.allergies" name="allergies" rows="2" placeholder="Ex: Pénicilline, arachides..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Traitement en cours</label>
+              <textarea [(ngModel)]="newMedicalRecord.traitement" name="traitement" rows="3" placeholder="Ex: Métformine 500mg 2x/jour..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Habitudes de vie</label>
+              <textarea [(ngModel)]="newMedicalRecord.habitudes" name="habitudes" rows="2" placeholder="Ex: Tabac 10 cigarettes/jour, sport régulier..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-save">Enregistrer le dossier</button>
+              <button type="button" (click)="showMedicalRecordForm = false" class="btn-cancel">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Formulaire nouvelle consultation -->
+      <div class="modal" *ngIf="showConsultForm">
+        <div class="modal-content">
+          <h3>Nouvelle consultation</h3>
+          <form (ngSubmit)="saveConsultation()">
+            <div class="form-group">
+              <label>Examen clinique</label>
+              <textarea [(ngModel)]="newConsultation.examenClinique" name="examenClinique" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Examens complémentaires</label>
+              <textarea [(ngModel)]="newConsultation.examenSupplementaire" name="examenSupplementaire" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Diagnostic</label>
+              <textarea [(ngModel)]="newConsultation.diagnostic" name="diagnostic" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Traitement prescrit</label>
+              <textarea [(ngModel)]="newConsultation.traitement" name="traitement" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Observations</label>
+              <textarea [(ngModel)]="newConsultation.observations" name="observations" rows="3"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-save">Enregistrer la consultation</button>
+              <button type="button" (click)="showConsultForm = false" class="btn-cancel">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

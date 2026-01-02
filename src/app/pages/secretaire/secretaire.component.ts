@@ -1,18 +1,43 @@
-// src/app/pages/medecin/medecin.component.ts
-import { Component } from '@angular/core';
-import { HeaderComponent } from '../../shared/header/header.component';
+import { Component, OnInit } from '@angular/core';
+import { PatientListComponent } from './patient-list/patient-list';
+import { RdvListComponent } from './rdv-list/rdv-list';
+import { WaitingQueueComponent } from './waiting-queue/waiting-queue';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-medecin',
+  selector: 'app-secretaire',
   standalone: true,
-  imports: [HeaderComponent],
-  template: `
-    <app-header></app-header>
-    <div class="page">
-      <h1>Espace Secretaire</h1>
-      <p>Bienvenue dans votre tableau de bord sectretaire !</p>
-    </div>
-  `,
-  styles: [`.page { padding: 2rem; text-align: center; }`]
+  imports: [
+    CommonModule,
+    PatientListComponent,
+    RdvListComponent,
+    WaitingQueueComponent
+  ],
+  templateUrl: './secretaire.component.html',
+  styleUrls: ['./secretaire.component.css']
+
 })
-export class SecretaireComponent {}
+export class SecretaireComponent implements OnInit{
+   activeTab: 'patients' | 'rdv' | 'queue' = 'patients';
+  currentTime: string = '';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.updateTime();
+    setInterval(() => this.updateTime(), 60000); // Mise à jour chaque minute
+  }
+
+  updateTime() {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString('fr-FR', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+}

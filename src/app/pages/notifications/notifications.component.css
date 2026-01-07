@@ -1,0 +1,24 @@
+:root{
+  --frozen-water: #C5DFD8;
+  --blue-spruce: #0E7268;
+  --tuscan-sun: #FAC967;
+  --pale-sky: #B0CDE1;
+}
+
+.notifications-page{ max-width:960px; margin:28px auto; padding:18px; background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(14,114,104,0.06); font-family:Segoe UI, Roboto, Arial }
+.page-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px }
+.page-header h1{ margin:0; color:var(--blue-spruce) }
+.actions{ display:flex; gap:10px }
+.btn{ background:var(--blue-spruce); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer }
+.btn.ghost{ background:transparent; color:var(--blue-spruce); border:1px solid rgba(14,114,104,0.12) }
+.create{ margin-bottom:18px }
+.create-row{ display:flex; gap:10px; margin-top:6px }
+.create-row input{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid #e6eef0 }
+.list ul{ list-style:none; padding:0; margin:0 }
+.list li{ padding:12px; border-bottom:1px solid #f2f6f7; display:flex; flex-direction:column }
+.list li.unread{ background: linear-gradient(90deg, rgba(197,223,216,0.25), transparent) }
+.meta{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px }
+.meta .date{ color:var(--pale-sky); font-size:13px }
+.meta .mark{ background:transparent; border:none; color:var(--blue-spruce); cursor:pointer }
+.message{ color:#222 }
+.empty{ text-align:center; color:#777; padding:20px }

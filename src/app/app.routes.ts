@@ -9,6 +9,7 @@ import { LandingPage } from './pages/landing-page/landing-page';
 import { PatientPage } from './pages/patient-page/patient-page';
 import { InscriptionPage } from './pages/inscription-page/inscription-page';
 import { MedecinLanding } from './pages/medecin-landing/medecin-landing';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 ;
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: 'medecin-landing', component: MedecinLanding },
   { path: 'medecin', component: MedecinComponent, canMatch: [authGuard] },
   { path: 'secretaire', component: SecretaireComponent, canMatch: [authGuard] },
-  { path: 'admin', component: AdminComponent, canMatch: [authGuard] }
+  { path: 'admin', component: AdminComponent, canMatch: [authGuard] },
+  { path: 'notifications', component: NotificationsComponent, canMatch: [authGuard] }
 ];

@@ -1,0 +1,47 @@
+<div class="chat-wrapper modern">
+  <div class="chat-header">
+    <div class="left">
+      <!-- simple SVG avatar for chatbot -->
+      <div class="avatar">
+        <svg viewBox="0 0 48 48" width="42" height="42" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#0e7268"/>
+              <stop offset="1" stop-color="#3fb8a6"/>
+            </linearGradient>
+          </defs>
+          <rect rx="10" width="48" height="48" fill="url(#g)"></rect>
+          <circle cx="18" cy="20" r="3" fill="#fff"></circle>
+          <circle cx="30" cy="20" r="3" fill="#fff"></circle>
+          <path d="M16 30c2 3 14 3 16 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"></path>
+        </svg>
+      </div>
+      <div class="title-block">
+        <div class="title">Chatbot SmartCare</div>
+        <div class="subtitle">Questions sur cabinets, médecins ou rendez‑vous — accessible sans compte.</div>
+      </div>
+    </div>
+    <div class="right small-note">Nous répondons instantanément</div>
+  </div>
+
+  <div class="chat-body" #chatBody>
+    <div class="messages">
+      <div *ngFor="let msg of messages()" class="message" [class.user]="msg.author === 'user'" [class.bot]="msg.author === 'bot'" [class.new]="msg._new">
+        <div class="bubble">{{ msg.message }}</div>
+        <div class="ts">{{ msg.date | date:'short' }}</div>
+      </div>
+    </div>
+
+    <div class="typing" *ngIf="isTyping()">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+  </div>
+
+  <div class="chat-controls">
+    <div class="error" *ngIf="error()">{{ error() }}</div>
+    <input type="text" [(ngModel)]="input" placeholder="Écrivez votre question..." (keydown.enter)="send()" />
+    <button class="btn-send" (click)="send()" [disabled]="isLoading()">{{ isLoading() ? 'Envoi...' : 'Envoyer' }}</button>
+  </div>
+</div>

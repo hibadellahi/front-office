@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 interface TokenResponse {
   accessToken: string;
@@ -20,13 +20,16 @@ interface JwtPayload {
   };
   exp: number;
 }
+
+interface User { username: string; roles: string[] }
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:8087/api/auth';
   private tokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
 
-  private currentUserSubject = new BehaviorSubject<any>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
@@ -50,7 +53,9 @@ export class AuthService {
     if (refreshToken) {
       this.http.post(`${this.apiUrl}/logout`, { refreshToken }).subscribe();
     }
-    localStorage.clear();
+    // supprimer uniquement nos clés
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
@@ -65,47 +70,59 @@ export class AuthService {
   }
 
   private loadToken() {
-  const token = this.getToken();
-  if (token && !this.isTokenExpired(token)) {
-    const payload = jwtDecode<JwtPayload>(token);
+    const token = this.getToken();
+    if (token && !this.isTokenExpired(token)) {
+      const payload = jwtDecode<JwtPayload>(token);
 
-    // ON LIT LES RÔLES DU CLIENT "user-auth-client" !!
-    const clientRoles = payload.resource_access?.['user-auth-client']?.roles || [];
-    const roles = clientRoles.map(r => 'ROLE_' + r.toUpperCase());
+      // ON LIT LES RÔLES DU CLIENT "user-auth-client" !!
+      const clientRoles = payload.resource_access?.['user-auth-client']?.roles || [];
+      const roles = clientRoles.map(r => 'ROLE_' + r.toUpperCase());
 
-    console.log('Rôles détectés dans le frontend :', roles);
-
-    this.currentUserSubject.next({
-      username: payload.preferred_username || 'Utilisateur',
-      roles: roles
-    });
-  } else {
-    this.currentUserSubject.next(null);
+      // Ne pas logguer en production
+      this.currentUserSubject.next({
+        username: payload.preferred_username || 'Utilisateur',
+        roles: roles
+      });
+    } else {
+      this.currentUserSubject.next(null);
+    }
   }
-}
+
+  getUserId(): number | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const payload = jwtDecode<any>(token);
+      // essayer d'extraire un id depuis les claims classiques
+      const id = payload.sub || payload.userId || payload.uid;
+      if (id) return Number(id);
+    } catch { }
+    return null;
+  }
 
   private isTokenExpired(token: string): boolean {
-  try {
-    const payload = jwtDecode<JwtPayload>(token);
-    return Date.now() >= payload.exp * 1000;
-  } catch {
-    return true;
+    try {
+      const payload = jwtDecode<JwtPayload>(token);
+      return Date.now() >= payload.exp * 1000;
+    } catch {
+      return true;
+    }
   }
-}
+
   hasRole(role: string): boolean {
     const user = this.currentUserSubject.value;
     return user?.roles?.includes(role) || false;
   }
 
   redirectByRole() {
-  if (this.hasRole('ROLE_ADMIN')) {
-    this.router.navigate(['/admin']);
-  } else if (this.hasRole('ROLE_MEDECIN')) {
-    this.router.navigate(['/medecin']);
-  } else if (this.hasRole('ROLE_SECRETAIRE')) {
-    this.router.navigate(['/secretaire']);
-  } else {
-    this.router.navigate(['/home']);
+    if (this.hasRole('ROLE_ADMIN')) {
+      this.router.navigate(['/admin']);
+    } else if (this.hasRole('ROLE_MEDECIN')) {
+      this.router.navigate(['/medecin']);
+    } else if (this.hasRole('ROLE_SECRETAIRE')) {
+      this.router.navigate(['/secretaire']);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
-}
 }

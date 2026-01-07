@@ -1,0 +1,31 @@
+<div class="notifications-page">
+  <app-header></app-header>
+
+  <header class="page-header">
+    <h1>Notifications</h1>
+    <div class="actions">
+      <button class="btn ghost" (click)="markAllRead()">Tous lus</button>
+      <button class="btn" (click)="toggleShowAll()">{{ showAll() ? 'Afficher moins' : 'Afficher tous' }}</button>
+    </div>
+  </header>
+
+  <section *ngIf="showMock()" class="mock-note">
+    Affichage de données de démonstration (pas de notifications réelles pour cet utilisateur).
+    <button class="btn ghost" (click)="disableMock()">Désactiver les données de démonstration</button>
+  </section>
+
+  <section class="list">
+    <div *ngIf="isLoading()" class="empty">Chargement…</div>
+    <div *ngIf="!isLoading() && notifications().length === 0" class="empty">Aucune notification</div>
+
+    <ul>
+      <li *ngFor="let n of notifications()" [class.unread]="!n.lu">
+        <div class="meta">
+          <strong class="date">{{ n.date | date:'short' }}</strong>
+          <button class="mark" (click)="markRead(n)">Marquer lu</button>
+        </div>
+        <div class="message">{{ n.message }}</div>
+      </li>
+    </ul>
+  </section>
+</div>
